@@ -1,4 +1,4 @@
-package com.springguides.accessing_data_jpa;
+package com.springguides.accessingdatajpa;
 
 import java.util.List;
 

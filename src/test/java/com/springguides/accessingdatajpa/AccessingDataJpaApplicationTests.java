@@ -1,4 +1,4 @@
-package com.springguides.accessing_data_jpa;
+package com.springguides.accessingdatajpa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
