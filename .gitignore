@@ -36,5 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 
-# H2 test db
-h2db.mv.db
+# generated db files
+/h2db.mv.db
+/generatedSchema/
