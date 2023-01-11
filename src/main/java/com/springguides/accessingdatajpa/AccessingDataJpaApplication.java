@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
@@ -15,15 +16,17 @@ public class AccessingDataJpaApplication {
     public static void main(String[] args) {
         SpringApplication.run(AccessingDataJpaApplication.class, args);
     }
+
     @Bean
+    @ConditionalOnProperty(
+            prefix = "command.line.runner",
+            value = "enabled",
+            havingValue = "true",
+            matchIfMissing = true)
     public CommandLineRunner demo(CustomerRepository repository) {
         return (args) -> {
             // save a few customers
-            repository.save(new Customer("Jack", "Bauer"));
-            repository.save(new Customer("Chloe", "O'Brian"));
-            repository.save(new Customer("Kim", "Bauer"));
-            repository.save(new Customer("David", "Palmer"));
-            repository.save(new Customer("Michelle", "Dessler"));
+            saveCustomers(repository);
 
             // fetch all customers
             log.info("Customers found with findAll():");
@@ -52,6 +55,14 @@ public class AccessingDataJpaApplication {
             repository.findByFirstName("Kim").forEach(c -> log.info(c.toString()));
             log.info("");
         };
+    }
+
+    public static void saveCustomers(CustomerRepository repository) {
+        repository.save(new Customer("Jack", "Bauer"));
+        repository.save(new Customer("Chloe", "O'Brian"));
+        repository.save(new Customer("Kim", "Bauer"));
+        repository.save(new Customer("David", "Palmer"));
+        repository.save(new Customer("Michelle", "Dessler"));
     }
 }
 
